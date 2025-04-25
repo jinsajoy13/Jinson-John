@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Jinson John - UI/UX Designer Portfolio. Crafting seamless digital experiences." />
+  <meta name="theme-color" content="#F71735" />
+  <title>Jinson John | UI/UX Designer</title>
+  <link rel="stylesheet" href="stylesheet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <nav aria-label="Main Navigation">
+      <div class="logo">Jinson John</div>
+      <div class="header-controls">
+        <button id="theme-toggle-mobile" class="theme-toggle" aria-label="Toggle dark mode">
+          <span class="icon sun-icon">☀</span>
+          <span class="icon moon-icon">☽</span>
+        </button>
+        <div class="hamburger-menu" tabindex="0" aria-label="Toggle menu" role="button">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <ul class="nav-links" aria-hidden="true">
+        <li><a href="#hero" class="active">Home</a></li>
+        <li><a href="#projects">Work</a></li>
+        <li><a href="#about-section">About</a></li>
+        <li><a href="#connect">Contact</a></li>
+        <li><a href="Resume/Jinson John's Resume.pdf" download>Resume</a></li>
+        <li class="desktop-theme-toggle">
+          <button id="theme-toggle-desktop" class="theme-toggle" aria-label="Toggle dark mode">
+            <span class="icon sun-icon">☀</span>
+            <span class="icon moon-icon">☽</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section id="hero" class="hero">
+      <div class="hero-content">
+        <p class="intro-text">Hi! I'm</p>
+        <h1>Jinson John, a UI/UX designer</h1>
+        <p class="mission-text">on a mission to craft seamless experiences. <span class="rocket-emoji">🚀</span></p>
+        <p class="tagline">"Exploring, designing, growing. Ready for new opportunities to create magic!"</p>
+        <button type="button" class="cta-button" onclick="document.getElementById('about-section').scrollIntoView({behavior: 'smooth'})">LEARN MORE</button>
+      </div>
+      <div class="hero-image">
+        <img src="Images/MainPicture.jpg" alt="Jinson John photo" />
+      </div>
+    </section>
+
+    <div class="section-divider" style="height:1px; background-color:#e0e0e0; border:none; margin:40px auto; width:100%; display:block;"></div>
+
+    <div class="personality-text">
+      <p>You know those serious, polished, and "I'm-the-best" portfolios? Yeah... this isn't one of them.</p>
+    </div>
+
+    <div class="section-divider" style="height:1px; background-color:#e0e0e0; border:none; margin:40px auto; width:100%; display:block;"></div>
+
+    <section id="about-section" class="about-section">
+      <div class="about-image">
+        <img src="Images/Black and white picture.png" alt="Profile image" />
+      </div>
+      <div class="about-content">
+        <h2>Curious mind, evolving designer, everyday learner.</h2>
+        <p>I'm <strong>Jinson John</strong>, a <strong>passionate UI/UX Designer</strong> who believes that great design isn't just about how things look—it's about how they work, feel, and connect with people.</p>
+        
+        <p>My journey into UI/UX design didn't begin with a plan—it began with curiosity. Just a curious guy asking a lot of "why's" and diving deep into an internet full of possibilities.</p>
+        
+        <p>Coming from a background in tech support and sales, I discovered early on that great design isn't just about making things look good—it's about making them work seamlessly for real people. That insight sparked a shift in me. I started seeing design as a tool to solve problems, not just decorate them. And that's what led me to explore the world of UI/UX with intention, empathy, and a desire to create meaningful experiences.</p>
+        
+        <p>I see design as more than a career; it's my way of shaping the digital world into something more accessible, intuitive, and meaningful. Now, I'm looking for new opportunities to bring my creativity and problem-solving skills to the right team.</p>
+        
+        <p><em>Let's build something amazing together!</em></p>
+      </div>
+    </section>
+
+    <div class="section-divider" style="height:1px; background-color:#e0e0e0; border:none; margin:40px auto; width:100%; display:block;"></div>
+
+    <section id="projects" class="projects">
+      <h2>Projects</h2>
+      <div class="project-grid">
+        <div class="project-item">
+          <h3>SoulSync – iOS Version</h3>
+          <p>Mental wellness, reimagined for iOS.</p>
+          <p class="project-description">A therapy and self-care app featuring mood tracking, guided meditations, and therapist sessions in an intuitive iOS interface. This case study showcases my design process tailored for iOS human-centered design principles.</p>
+          <a href="soulsync.html" class="view-project">View Project <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="project-item">
+          <h3>SoulSync – Android Version</h3>
+          <p>Expanding the SoulSync experience to Android.</p>
+          <p class="project-description">An adaptation of SoulSync for Android users, following native design patterns while maintaining the app's core essence. Highlights include platform-specific enhancements and seamless feature continuity across both platforms.</p>
+          <a href="android.html" class="view-project">View Project <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="project-item">
+          <h3>SoulSync – Landing Page</h3>
+          <p>Designing trust and conversion through storytelling.</p>
+          <p class="project-description">A conversion-focused landing page that introduces SoulSync's purpose and builds trust with potential users. The design guides visitors toward action while clearly communicating the app's core benefits.</p>
+          <a href="landing-page.html" class="view-project">View Project <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider" style="height:1px; background-color:#e0e0e0; border:none; margin:40px auto; width:100%; display:block;"></div>
+  </main>
+  <footer id="connect" class="connect" aria-label="Connect with me">
+    <h3>Let's connect</h3>
+    <p>Whether you have an opportunity or just want to geek out about design, my inbox is open!</p>
+    <div class="social-links">
+      <a href="mailto:jinsaaaaa@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://wa.me/919895987749" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://instagram.com/jinsa.joy" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://medium.com/" target="_blank" aria-label="Medium"><i class="fab fa-medium-m"></i></a>
+    </div>
+    <div class="copyright">
+      <p>© 2025 Jinson John. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <!-- Back to top button -->
+  <button id="back-to-top" class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+  
+  <script src="script.js"></script>
+</body>
+</html>
