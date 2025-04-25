@@ -3,12 +3,20 @@ function setupThemeToggle() {
     const mobileToggle = document.getElementById('theme-toggle-mobile');
     const desktopToggle = document.getElementById('theme-toggle-desktop');
     
-    console.log('Theme toggles:', mobileToggle, desktopToggle); // Debugging
+    // Check if dark mode is saved in localStorage
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    
+    // Apply dark mode if it was previously enabled
+    if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+    }
     
     // Function to toggle dark mode
     function toggleDarkMode() {
-        console.log('Toggling dark mode'); // Debugging
-        document.body.classList.toggle('dark-mode');
+        const isDarkModeNow = document.body.classList.toggle('dark-mode');
+        
+        // Save preference to localStorage
+        localStorage.setItem('darkMode', isDarkModeNow);
     }
     
     // Add event listeners to both toggles
@@ -156,64 +164,97 @@ function closeMenu() {
 function initProjectItems() {
     const projectItems = document.querySelectorAll('.project-item');
     
-    // For mobile devices only
-    if (window.innerWidth <= 992) {
-        // Function to handle click on project item
-        function handleProjectClick(e) {
-            // If the click is on a link, don't toggle active state
-            if (e.target.tagName === 'A' || e.target.closest('a')) {
-                return;
-            }
-            
-            // Remove active class from all other items
-            projectItems.forEach(item => {
-                if (item !== this) {
-                    item.classList.remove('active');
-                }
-            });
-            
-            // Toggle active class on this item
-            this.classList.toggle('active');
+    if (!projectItems.length) {
+        console.log('No project items found');
+        return;
+    }
+    
+    // Function to handle click on project item
+    function handleProjectClick(e) {
+        // Only handle clicks on the project item itself, not on the link
+        if (e.target.closest('.view-project')) {
+            return; // Let the link handle its own click
         }
         
-        // Add click event listener to project items
-        projectItems.forEach(item => {
-            item.addEventListener('click', handleProjectClick);
+        e.preventDefault();
+        
+        // Get the link inside the project item
+        const link = this.querySelector('a.view-project');
+        if (link && link.href) {
+            // Navigate immediately without delay
+            window.location = link.href; // Using location assignment instead of href
+        }
+    }
+    
+    // Add click event to each project item
+    projectItems.forEach(item => {
+        // Make the entire card clickable with better performance
+        item.addEventListener('click', handleProjectClick);
+        
+        // Optimize the view project links directly
+        const viewProjectLink = item.querySelector('.view-project');
+        if (viewProjectLink) {
+            viewProjectLink.style.webkitTapHighlightColor = 'transparent';
+            viewProjectLink.style.outline = 'none';
+        }
+    });
+}
+
+// Set up back to top button
+function setupBackToTop() {
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    if (backToTopButton) {
+        // Show button when user scrolls down 300px from the top
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
         });
         
-        // Close active items when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.project-item')) {
-                projectItems.forEach(item => {
-                    item.classList.remove('active');
-                });
-            }
+        // Scroll to top when button is clicked
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     }
 }
 
-// Back to top button functionality
-function initBackToTopButton() {
-    const backToTopButton = document.getElementById('back-to-top');
-    
-    if (!backToTopButton) return;
-    
-    // Show button when scrolling down 300px
-    window.addEventListener('scroll', debounce(() => {
-        if (window.pageYOffset > 300) {
-            backToTopButton.classList.add('visible');
-        } else {
-            backToTopButton.classList.remove('visible');
-        }
-    }, 50));
-    
-    // Scroll to top when clicking the button
-    backToTopButton.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+// Robust social icons handler
+function setupSocialIcons() {
+  const links = document.querySelectorAll('.social-links a');
+  
+  links.forEach(link => {
+    const icon = link.querySelector('i');
+    let isInteracting = false;
+
+    // Touch devices
+    link.addEventListener('touchstart', () => {
+      isInteracting = true;
+      icon.style.color = '#F71735';
+    }, {passive: true});
+
+    // Mouse devices
+    link.addEventListener('mouseenter', () => {
+      if (!isInteracting) icon.style.color = '#F71735';
     });
+
+    // Cleanup events
+    const resetIcon = () => {
+      setTimeout(() => {
+        icon.style.color = '';
+        isInteracting = false;
+      }, 200);
+    };
+
+    ['touchend','mouseleave','pointerleave'].forEach(evt => {
+      link.addEventListener(evt, resetIcon);
+    });
+  });
 }
 
 // Initialize everything when DOM is loaded
@@ -228,16 +269,19 @@ document.addEventListener('DOMContentLoaded', function() {
     initProjectItems();
     
     // Initialize back to top button
-    initBackToTopButton();
+    setupBackToTop();
     
     // Copy protection
     document.addEventListener('copy', function(e) {
-        e.clipboardData.setData('text/plain', '© 2025 Jinson John. All rights reserved.');
+        e.clipboardData.setData('text/plain', ' 2025 Jinson John. All rights reserved.');
         e.preventDefault();
     });
     
     // Set up scroll animations
     initScrollAnimations();
+    
+    // Set up social icons for mobile
+    setupSocialIcons();
 });
 
 // Set up scroll animations
@@ -308,6 +352,7 @@ function initScrollAnimations() {
 function setupElementAnimations() {
     const projectItems = document.querySelectorAll('.project-item');
     const personalityText = document.querySelector('.personality-text');
+    const socialLinks = document.querySelectorAll('.social-links a');
     
     const observerOptions = {
         threshold: 0.2,
@@ -315,24 +360,24 @@ function setupElementAnimations() {
     };
     
     // Animation for project items
-    const animateOnScroll = (entries, observer) => {
-        entries.forEach(entry => {
+    const projectObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = "1";
-                entry.target.style.transform = "translateY(0)";
-                observer.unobserve(entry.target);
+                setTimeout(() => {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }, index * 100);
+                projectObserver.unobserve(entry.target);
             }
         });
-    };
-    
-    const observer = new IntersectionObserver(animateOnScroll, observerOptions);
+    }, observerOptions);
     
     // Set initial state for project items
-    projectItems.forEach(item => {
+    projectItems.forEach((item, index) => {
         item.style.opacity = "0";
         item.style.transform = "translateY(20px)";
-        item.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
-        observer.observe(item);
+        item.style.transition = `opacity 0.6s ease-out ${index * 0.1}s, transform 0.6s ease-out ${index * 0.1}s`;
+        projectObserver.observe(item);
     });
     
     // Animation for personality text
@@ -351,6 +396,50 @@ function setupElementAnimations() {
         personalityText.style.transform = "translateY(20px)";
         personalityText.style.transition = "opacity 0.8s ease-out, transform 0.8s ease-out";
         personalityObserver.observe(personalityText);
+    }
+    
+    // Animation for social links
+    if (socialLinks.length) {
+        const socialLinksObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Get all social links and animate them with a staggered delay
+                    socialLinks.forEach((link, index) => {
+                        setTimeout(() => {
+                            link.style.opacity = "1";
+                            link.style.transform = "translateY(0)";
+                        }, index * 100); // 100ms delay between each icon
+                        
+                        // Improve touch handling for social links
+                        link.addEventListener('touchstart', function(e) {
+                            // Add touch-active class on touch start
+                            this.classList.add('touch-active');
+                        });
+                        
+                        link.addEventListener('touchend', function() {
+                            // Remove touch-active class after animation completes
+                            setTimeout(() => {
+                                this.classList.remove('touch-active');
+                            }, 300);
+                        });
+                    });
+                    socialLinksObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Set initial state for social links
+        socialLinks.forEach(link => {
+            link.style.opacity = "0";
+            link.style.transform = "translateY(20px)";
+            link.style.transition = "opacity 0.5s ease-out, transform 0.5s ease-out";
+        });
+        
+        // Observe the parent container
+        const socialLinksContainer = document.querySelector('.social-links');
+        if (socialLinksContainer) {
+            socialLinksObserver.observe(socialLinksContainer);
+        }
     }
     
     // Add hover effects to navigation links
