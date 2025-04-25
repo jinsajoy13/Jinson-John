@@ -34,6 +34,7 @@ nav {
   padding: 0;
   margin: 0;
   align-items: center;
+  position: relative;
 }
 
 nav a {
@@ -62,16 +63,24 @@ nav a::after {
   bottom: 0;
   left: 0;
   background-color: #F71735;
-  transition: width 0.3s;
+  transition: width 0.3s ease;
 }
 
-/* Ensure all nav links can show underline on hover */
-nav a:hover::after {
-  width: 100% !important; /* Using !important to override active state */
-}
-
+/* Active state - no underline by default */
 nav a.active::after {
-  width: 100%;
+  width: 0;
+}
+
+/* All nav links show underline on hover */
+nav a:hover::after {
+  width: 100% !important; /* Using !important to override normal state */
+  transition: width 0.2s ease-in-out;
+}
+
+/* Active link has same color as other links */
+nav a.active {
+  color: #666; /* Same as normal links */
+  font-weight: 500; /* Same as normal links */
 }
 
 /* Hero Section */
@@ -596,16 +605,24 @@ footer h3 {
   display: none !important;
 }
 
-/* Desktop hover effects */
-@media (min-width: 769px) {
-  .social-links a:hover i {
-    color: #F71735 !important;
-    transform: scale(1.1);
-  }
-  
-  .dark-mode .social-links a:hover i {
-    color: #F71735 !important;
-  }
+/* Social icon hover/active effects for all device sizes - icon turns red */
+.social-links a:hover i,
+.social-links a:active i,
+.social-links a:focus i {
+  color: #F71735 !important;
+  transition: color 0s; /* Immediate transition on touch */
+}
+
+.dark-mode .social-links a:hover i,
+.dark-mode .social-links a:active i,
+.dark-mode .social-links a:focus i {
+  color: #F71735 !important;
+}
+
+/* Add touch feedback - this helps mobile devices */
+.social-links a {
+  -webkit-tap-highlight-color: rgba(247, 23, 53, 0.2) !important;
+  touch-action: manipulation;
 }
 
 /* Social icons base styles only */
@@ -764,19 +781,24 @@ footer p a:hover::after {
 /* Theme toggle button - consolidated */
 .theme-toggle {
   position: relative;
-  width: 55px;
-  height: 28px;
-  border-radius: 16px;
-  background: linear-gradient(90deg, #2196F3, #00BCD4);
-  border: none;
+  width: 50px;
+  height: 26px;
+  border-radius: 15px;
+  background-color: #e7e7e7;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent; /* Remove blue highlight on mobile */
-  outline: none; /* Remove outline on focus */
+  transition: background-color 0.3s;
+  overflow: hidden;
+  border: none !important;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding: 2px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  justify-content: space-between;
+  padding: 0 5px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+  -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+  outline: none !important;
+  user-select: none;
+  -webkit-appearance: none !important;
+  appearance: none !important;
 }
 
 .social-links a i {
@@ -1416,6 +1438,102 @@ header {
 .desktop-theme-toggle {
   display: flex;
   align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+  height: 100%;
+}
+
+.nav-links li {
+  display: flex;
+  align-items: center;
+}
+
+/* Theme toggle styling with neutral colors only */
+.theme-toggle {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  border-radius: 15px;
+  background-color: #e7e7e7;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  overflow: hidden;
+  border: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+  -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+  outline: none !important;
+  user-select: none;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+/* Handle all potential focus states to remove blue outline */
+.theme-toggle:focus,
+.theme-toggle:active,
+.theme-toggle:focus-visible,
+.theme-toggle:focus-within {
+  outline: 0 !important;
+  -webkit-tap-highlight-color: transparent !important;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.1) !important;
+  border: none !important;
+  background-color: #e7e7e7 !important;
+}
+
+/* Remove any webkit default styles */
+input[type="button"].theme-toggle,
+button.theme-toggle {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+.theme-toggle .icon {
+  font-size: 14px;
+  position: absolute;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle .sun-icon {
+  left: 7px;
+  color: #555;
+}
+
+.theme-toggle .moon-icon {
+  right: 7px;
+  color: #555;
+}
+
+.theme-toggle::before {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #f8f8f8;
+  left: 2px;
+  transform: translateX(0);
+  transition: transform 0.3s, background-color 0.3s;
+  z-index: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.dark-mode .theme-toggle {
+  background-color: #333333;
+}
+
+.dark-mode .theme-toggle::before {
+  transform: translateX(24px);
+  background-color: #777777;
+}
+
+.dark-mode .theme-toggle .sun-icon,
+.dark-mode .theme-toggle .moon-icon {
+  color: #bbbbbb;
 }
 
 .header-controls {

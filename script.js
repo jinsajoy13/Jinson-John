@@ -12,19 +12,54 @@ function setupThemeToggle() {
     }
     
     // Function to toggle dark mode
-    function toggleDarkMode() {
+    function toggleDarkMode(e) {
+        // Prevent default behavior (including blue highlight)
+        e.preventDefault();
+        
         const isDarkModeNow = document.body.classList.toggle('dark-mode');
         
         // Save preference to localStorage
         localStorage.setItem('darkMode', isDarkModeNow);
+        
+        // Manually set background color to prevent flashing blue
+        if (e.currentTarget) {
+            if (isDarkModeNow) {
+                e.currentTarget.style.backgroundColor = '#222';
+            } else {
+                e.currentTarget.style.backgroundColor = '#f0f0f0';
+            }
+        }
+        
+        // Prevent focus outline
+        e.currentTarget.blur();
     }
     
     // Add event listeners to both toggles
     if (mobileToggle) {
+        // Remove default behavior on mousedown to prevent blue flash
+        mobileToggle.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+        });
+        
+        // Handle touchstart to prevent highlight
+        mobileToggle.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+        }, {passive: false});
+        
         mobileToggle.addEventListener('click', toggleDarkMode);
     }
     
     if (desktopToggle) {
+        // Remove default behavior on mousedown to prevent blue flash
+        desktopToggle.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+        });
+        
+        // Handle touchstart to prevent highlight
+        desktopToggle.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+        }, {passive: false});
+        
         desktopToggle.addEventListener('click', toggleDarkMode);
     }
 }
@@ -227,16 +262,32 @@ function setupBackToTop() {
 // Robust social icons handler
 function setupSocialIcons() {
   const links = document.querySelectorAll('.social-links a');
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  console.log('Touch device detected:', isTouchDevice);
   
   links.forEach(link => {
     const icon = link.querySelector('i');
     let isInteracting = false;
 
     // Touch devices
-    link.addEventListener('touchstart', () => {
+    link.addEventListener('touchstart', (e) => {
+      e.preventDefault(); // Prevent default to improve responsiveness
       isInteracting = true;
       icon.style.color = '#F71735';
-    }, {passive: true});
+      link.classList.add('touched'); // Add class for styling
+      
+      // Keep the color visible longer on touch devices
+      if (isTouchDevice) {
+        setTimeout(() => {
+          // Only reset if not in active state
+          if (!link.matches(':active')) {
+            icon.style.color = '';
+            link.classList.remove('touched');
+          }
+          isInteracting = false;
+        }, 800); // Longer timeout for mobile/tablet
+      }
+    }, {passive: false});
 
     // Mouse devices
     link.addEventListener('mouseenter', () => {
@@ -245,15 +296,27 @@ function setupSocialIcons() {
 
     // Cleanup events
     const resetIcon = () => {
-      setTimeout(() => {
-        icon.style.color = '';
-        isInteracting = false;
-      }, 200);
+      // For mouse devices or non-touch interactions
+      if (!isTouchDevice || !isInteracting) {
+        setTimeout(() => {
+          icon.style.color = '';
+          link.classList.remove('touched');
+          isInteracting = false;
+        }, 200);
+      }
     };
 
-    ['touchend','mouseleave','pointerleave'].forEach(evt => {
+    ['mouseleave','pointerleave'].forEach(evt => {
       link.addEventListener(evt, resetIcon);
     });
+    
+    // Special handling for touchend on touch devices
+    if (isTouchDevice) {
+      link.addEventListener('touchend', () => {
+        // Keep the effect a bit longer on touch devices
+        // The 800ms timeout in touchstart will handle the reset
+      });
+    }
   });
 }
 
