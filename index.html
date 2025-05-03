@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jinson John's UI/UX Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
+</head>
+<body>
+<div id="header">
+    <div class="container">
+        <nav>
+            <img src="images/logo.png" class="logo">
+            <ul id="sidemenu">
+                <li><a href="#header">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <i class="fas fa-times" onclick="closemenu()"></i>
+            </ul>
+            <i class="fas fa-bars" onclick="openmenu()"></i>
+        </nav>
+        <div class="header-text">
+            <p>UI/UX Designer</p>
+            <h1>Hi, I'm <span>Jinson John</span></h1>
+            <p class="mission-text">on a mission to craft seamless experiences 🚀</p>
+            <p class="description-text">Exploring, designing, growing. Ready for new opportunities to create magic!</p>
+        </div>
+    </div>
+</div>
+<!-- -----------about---------- -->
+<div id="about">
+    <div class="container">
+        <div class="row">
+            <div class="about-col-1">
+                <img src="images/user.png">
+            </div>
+            <div class="about-col-2">
+                <h2 class="about-heading">Curious mind, evolving designer, everyday learner</h2>
+                <p>I'm <strong>Jinson John</strong>, a <strong>UI/UX Designer</strong> driven by curiosity and empathy. My journey began not with a plan, but with endless "why's" and a desire to understand how things work.
+                    <br><br>
+                    Coming from a background in tech support and as a digital executive, I realized that great design isn't just about visuals—it's about solving real problems for real people. That shift led me to dive into UI/UX with purpose.
+                    <br><br>
+                    For me, design is more than a career—it's how I shape intuitive, human-centered digital experiences. I'm now looking to bring my skills and creativity to a team that values thoughtful, meaningful design.
+                    <br><br>
+                    <em>Let's build something impactful together!</em>
+                </p>
+
+                <div class="tab-titles">
+                    <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+                    <p class="tab-links" onclick="opentab('education')">Education</p>
+                </div>
+                <div class="tab-contents active-tab" id="skills">
+                    <ul>
+                        <li><span>UI/UX</span><br>Crafting user-first experiences for websites and mobile apps—grounded in research, usability, and clean visuals.</li>
+                        <li><span>Mobile & Web App Design</span><br>Designing modern, responsive interfaces tailored for iOS, Android, and the web, focusing on functionality and clarity.</li>
+                        <li><span>Wireframes & Prototypes</span><br>Bringing ideas to life through structured wireframes and high-fidelity prototypes that guide development and storytelling.</li>
+                    </ul>
+                </div>
+                <div class="tab-contents" id="education">
+                    <ul>
+                        <li><span>2024</span><br>UI/UX Design Certified - DesignBoat, Bangalore</li>
+                        <li><span>2021</span><br>Bsc - Indian Acadmeny Degree College, Bangalore</li>
+                        <li><span>2018</span><br>PUC - Andhra Loyola College, Vijayawada</li>
+                        <li><span>2016</span><br>SSC - Good News E.M High School, Vijayawada</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ---------services---------------- -->
+<div id="services">
+    <div class="container">
+        <h1 class="sub-title">My Services</h1>
+        <div class="services-list">
+            <div>
+                <i class="fas fa-code"></i>
+                <h2>Web Design</h2>
+                <p>I craft responsive, visually appealing websites that balance aesthetics with functionality. Whether it's a portfolio, landing page, or business site, I focus on clean layouts, intuitive navigation, and a user-first approach that helps brands stand out online.</p>
+            </div>
+            <div>
+                <i class="fas fa-crop-alt"></i>
+                <h2>UI/UX Design</h2>
+                <p>I design seamless digital experiences grounded in research, empathy, and usability. From wireframes to final prototypes, I focus on solving real problems and creating intuitive user flows that feel natural and engaging—across web and mobile platforms.</p>
+            </div>
+            <div>
+                <i class="fab fa-app-store"></i>
+                <h2>App Design</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nulla nibh, tincidunt sit amet sapien quis.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ----------portfolio------------ -->
+<div id="portfolio">
+    <div class="container">
+        <h1 class="sub-title">My Work</h1>
+        <div class="work-list">
+            <div class="work">
+                <img src="images/work-1.png" onclick="openProject('project1')">
+                <div class="layer">
+                    <h3>SoulSync – iOS Version</h3>
+                    <p>A self-care and therapy app with mood tracking, meditations, and therapist sessions. This iOS case study highlights my human-centered design approach.</p>
+                    <a href="#" onclick="openProject('project1')"><i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+            <div class="work">
+                <img src="images/work-2.png" onclick="openProject('project2')">
+                <div class="layer">
+                    <h3>SoulSync – Android Version</h3>
+                    <p>An adaptation of SoulSync for Android users, following native design patterns while maintaining the app's core essence. Highlights include platform-specific enhancements and seamless feature continuity across both platforms.</p>
+                    <a href="#" onclick="openProject('project2')"><i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+            <div class="work">
+                <img src="images/work-3.png" onclick="openProject('project3')">
+                <div class="layer">
+                    <h3>SoulSync – Landing Page</h3>
+                    <p>A conversion-focused landing page that introduces SoulSync's purpose and builds trust with potential users. The design guides visitors toward action while clearly communicating the app's core benefits.</p>
+                    <a href="#" onclick="openProject('project3')"><i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Project Overlay Pages -->
+<div id="project1" class="project-overlay">
+    <div class="project-content">
+        <div class="project-header">
+            <a href="#" class="back-btn" onclick="closeProject('project1')">Back to Portfolio</a>
+            <span class="close-btn" onclick="closeProject('project1')">&times;</span>
+        </div>
+        <img src="images/SoulSync -iOs Project.png" alt="SoulSync iOS Project">
+    </div>
+</div>
+
+<div id="project2" class="project-overlay">
+    <div class="project-content">
+        <div class="project-header">
+            <a href="#" class="back-btn" onclick="closeProject('project2')">Back to Portfolio</a>
+            <span class="close-btn" onclick="closeProject('project2')">&times;</span>
+        </div>
+        <img src="images/SoulSync Android Project.png" alt="SoulSync Android Project">
+    </div>
+</div>
+
+<div id="project3" class="project-overlay">
+    <div class="project-content">
+        <div class="project-header">
+            <a href="#" class="back-btn" onclick="closeProject('project3')">Back to Portfolio</a>
+            <span class="close-btn" onclick="closeProject('project3')">&times;</span>
+        </div>
+        <img src="images/SoulSync Landing page.png" alt="SoulSync Landing Page">
+    </div>
+</div>
+<!-- ----------contact------------- -->
+<div id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="contact-left">
+                <h1 class="sub-title">Contact Me</h1>
+                <p><i class="fas fa-paper-plane"></i> jinsaaaaa@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +91 9895987749</p>
+                <div class="social-icons">
+                    <a href="https://facebook.com/share/1CVWAm897Y/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://wa.me/919895987749"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://instagram.com/jinsa.joy"><i class="fab fa-instagram"></i></a>
+                    <a href="https://behance.net/jinsajoy13"><i class="fab fa-behance"></i></a>
+                </div>
+                <a href="images/UX Resume.pdf" download class="btn btn2">Download CV</a>
+            </div>
+            <div class="contact-right">
+                <form name="submit-to-google-sheet">
+                    <input type="text" name="Name" placeholder="Your Name" required>
+                    <input type="email" name="Email" placeholder="Your Email" required>
+                    <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+                    <button type="submit" class="btn btn2">Submit</button>
+                </form>
+                <span id="msg"></span>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>© 2025 Jinson John. All rights reserved </p>
+    </div>
+</div>
+
+
+
+<script>
+
+    var tablinks = document.getElementsByClassName("tab-links");
+    var tabcontents = document.getElementsByClassName("tab-contents");
+
+    function opentab(tabname){
+        for(tablink of tablinks){
+            tablink.classList.remove("active-link");
+        }
+        for(tabcontent of tabcontents){
+            tabcontent.classList.remove("active-tab");
+        }
+        event.currentTarget.classList.add("active-link");
+        document.getElementById(tabname).classList.add("active-tab");
+    }
+
+</script>
+
+<script>
+
+    var sidemeu = document.getElementById("sidemenu");
+
+    function openmenu(){
+        sidemeu.style.right = "0";
+    }
+    function closemenu(){
+        sidemeu.style.right = "-200px";
+    }
+
+</script>
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzj6j_11JRXA1tsBCxBmJyKEc2-y_w2fcUgPUi0GA3cMcX-9rCNnVdTIDQRqn33__0OEA/exec' // add your own app script link here
+    const form = document.forms['submit-to-google-sheet']
+    const msg = document.getElementById("msg")
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+            msg.innerHTML = "Message sent successfully"
+            setTimeout(function(){
+                msg.innerHTML = ""
+            },300)
+            form.reset()
+        })
+        .catch(error => console.error('Error!', error.message))
+    })
+</script>
+
+<script>
+    // Project overlay functions
+    function openProject(projectId) {
+        document.getElementById(projectId).style.display = "block";
+        document.body.style.overflow = "hidden"; // Prevent scrolling when overlay is open
+    }
+    
+    function closeProject(projectId) {
+        document.getElementById(projectId).style.display = "none";
+        document.body.style.overflow = "auto"; // Re-enable scrolling when overlay is closed
+    }
+    
+    // Close project overlay when clicking outside the content
+    window.onclick = function(event) {
+        const overlays = document.getElementsByClassName('project-overlay');
+        for (let i = 0; i < overlays.length; i++) {
+            if (event.target == overlays[i]) {
+                overlays[i].style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+    }
+</script>
+
+<!-- Copyright Protection -->
+<script>
+  document.addEventListener('copy', function(e) {
+    e.preventDefault();
+    const copyrightNotice = "© 2025 Jinson John. This content is protected and cannot be copied.";
+    if (e.clipboardData) {
+      e.clipboardData.setData('text/plain', copyrightNotice);
+    } else if (window.clipboardData) {
+      window.clipboardData.setData('Text', copyrightNotice);
+    }
+    alert("Copying is disabled. Copyright notice has been copied instead.");
+  });
+</script>
+</body>
+</html>
