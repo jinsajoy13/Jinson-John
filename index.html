@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jinson John's UI/UX Design Portfolio - Crafting seamless digital experiences with a focus on user-centered design, mobile apps, and web interfaces.">
+    <link rel="icon" type="image/png" href="Images/logo.png">
     <title>Jinson John's UI/UX Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
 </head>
 <body>
@@ -64,7 +66,7 @@
                 <div class="tab-contents" id="education">
                     <ul>
                         <li><span>2024</span><br>UI/UX Design Certified - DesignBoat, Bangalore</li>
-                        <li><span>2021</span><br>Bsc - Indian Acadmeny Degree College, Bangalore</li>
+                        <li><span>2021</span><br>Bsc - Indian Academy Degree College, Bangalore</li>
                         <li><span>2018</span><br>PUC - Andhra Loyola College, Vijayawada</li>
                         <li><span>2016</span><br>SSC - Good News E.M High School, Vijayawada</li>
                     </ul>
@@ -91,7 +93,7 @@
             <div>
                 <i class="fab fa-app-store"></i>
                 <h2>App Design</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nulla nibh, tincidunt sit amet sapien quis.</p>
+                <p>From idea to interface, I design mobile apps that users love to use. I follow platform-specific guidelines (iOS & Android), ensuring a polished look, consistent behavior, and a smooth user journey—tailored to your goals and your audience's needs.</p>
             </div>
         </div>
     </div>
@@ -180,7 +182,7 @@
                     <input type="text" name="Name" placeholder="Your Name" required>
                     <input type="email" name="Email" placeholder="Your Email" required>
                     <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
-                    <button type="submit" class="btn btn2">Submit</button>
+                    <button type="submit" class="btn btn2" id="submitBtn">Submit</button>
                 </form>
                 <span id="msg"></span>
             </div>
@@ -227,21 +229,52 @@
 
 </script>
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzj6j_11JRXA1tsBCxBmJyKEc2-y_w2fcUgPUi0GA3cMcX-9rCNnVdTIDQRqn33__0OEA/exec' // add your own app script link here
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzj6j_11JRXA1tsBCxBmJyKEc2-y_w2fcUgPUi0GA3cMcX-9rCNnVdTIDQRqn33__0OEA/exec'
     const form = document.forms['submit-to-google-sheet']
     const msg = document.getElementById("msg")
+    const submitBtn = document.getElementById("submitBtn")
   
     form.addEventListener('submit', e => {
-      e.preventDefault()
-      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(response => {
-            msg.innerHTML = "Message sent successfully"
-            setTimeout(function(){
-                msg.innerHTML = ""
-            },300)
-            form.reset()
+        e.preventDefault()
+        // Disable button and show loading state
+        submitBtn.disabled = true
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...'
+        
+        fetch(scriptURL, { 
+            method: 'POST', 
+            body: new FormData(form)
         })
-        .catch(error => console.error('Error!', error.message))
+        .then(response => {
+            // Show success message
+            msg.innerHTML = "Message sent successfully"
+            msg.style.color = "#61b752"
+            
+            // Reset form and button
+            form.reset()
+            submitBtn.disabled = false
+            submitBtn.innerHTML = 'Submit'
+            
+            // Hide success message after 1 second
+            setTimeout(() => {
+                msg.innerHTML = ""
+            }, 1000)
+        })
+        .catch(error => {
+            // Show error message
+            msg.innerHTML = "Error sending message. Please try again."
+            msg.style.color = "#ff004f"
+            
+            // Reset button
+            submitBtn.disabled = false
+            submitBtn.innerHTML = 'Submit'
+            
+            // Hide error message after 1 second
+            setTimeout(() => {
+                msg.innerHTML = ""
+            }, 1000)
+            
+            console.error('Error!', error.message)
+        })
     })
 </script>
 
