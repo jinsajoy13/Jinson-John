@@ -135,30 +135,30 @@
 <div id="project1" class="project-overlay">
     <div class="project-content">
         <div class="project-header">
-            <a href="#" class="back-btn" onclick="closeProject('project1')">Back to Portfolio</a>
-            <span class="close-btn" onclick="closeProject('project1')">&times;</span>
+            <a href="#" class="back-btn" onclick="closeProject('project1')">Back</a>
         </div>
         <img src="Images/SoulSync -iOs Project.png" alt="SoulSync iOS Project">
+        <a href="#" class="top-btn" onclick="scrollToTop('project1')"><i class="fas fa-arrow-up"></i></a>
     </div>
 </div>
 
 <div id="project2" class="project-overlay">
     <div class="project-content">
         <div class="project-header">
-            <a href="#" class="back-btn" onclick="closeProject('project2')">Back to Portfolio</a>
-            <span class="close-btn" onclick="closeProject('project2')">&times;</span>
+            <a href="#" class="back-btn" onclick="closeProject('project2')">Back</a>
         </div>
         <img src="Images/SoulSync Android Project.png" alt="SoulSync Android Project">
+        <a href="#" class="top-btn" onclick="scrollToTop('project2')"><i class="fas fa-arrow-up"></i></a>
     </div>
 </div>
 
 <div id="project3" class="project-overlay">
     <div class="project-content">
         <div class="project-header">
-            <a href="#" class="back-btn" onclick="closeProject('project3')">Back to Portfolio</a>
-            <span class="close-btn" onclick="closeProject('project3')">&times;</span>
+            <a href="#" class="back-btn" onclick="closeProject('project3')">Back</a>
         </div>
         <img src="Images/SoulSync Landing page.png" alt="SoulSync Landing Page">
+        <a href="#" class="top-btn" onclick="scrollToTop('project3')"><i class="fas fa-arrow-up"></i></a>
     </div>
 </div>
 <!-- ----------contact------------- -->
@@ -283,11 +283,41 @@
     function openProject(projectId) {
         document.getElementById(projectId).style.display = "block";
         document.body.style.overflow = "hidden"; // Prevent scrolling when overlay is open
+        
+        // Add scroll event listener for this project
+        const projectElement = document.getElementById(projectId);
+        projectElement.addEventListener('scroll', function() {
+            toggleTopButton(projectId);
+        });
+        
+        // Initialize top button state
+        toggleTopButton(projectId);
     }
     
     function closeProject(projectId) {
         document.getElementById(projectId).style.display = "none";
         document.body.style.overflow = "auto"; // Re-enable scrolling when overlay is closed
+    }
+    
+    // Toggle back to top button visibility based on scroll position
+    function toggleTopButton(projectId) {
+        const projectElement = document.getElementById(projectId);
+        const topBtn = projectElement.querySelector('.top-btn');
+        
+        // Show button after scrolling down 300px
+        if (projectElement.scrollTop > 300) {
+            topBtn.classList.add('visible');
+        } else {
+            topBtn.classList.remove('visible');
+        }
+    }
+    
+    // Scroll to top function for project overlays
+    function scrollToTop(projectId) {
+        document.getElementById(projectId).scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
     
     // Close project overlay when clicking outside the content
